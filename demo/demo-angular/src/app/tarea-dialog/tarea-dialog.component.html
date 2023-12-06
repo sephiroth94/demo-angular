@@ -1,0 +1,48 @@
+<div class="row mb-3">
+    <div class="col-md-3">
+        <div class="form-floating mb-3 mb-md-0">
+            <input class="form-control" id="inputTitulo" type="text" placeholder="Enter your first name" [(ngModel)]="titulo"/>
+            <label for="inputTitulo">Titulo</label>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-floating">
+            <input class="form-control" id="inputDescripcion" type="text" placeholder="Enter your last name" [(ngModel)]="descripcion"/>
+            <label for="inputDescripcion">Descripcion</label>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="form-floating">
+            <input class="form-control" id="inputFecha" type="date" placeholder="Enter your last name" [(ngModel)]="fechaCreacion"/>
+            <label for="inputFecha">Fecha de creacion</label>
+        </div>
+    </div>
+</div>
+<div class="row mb-3">
+    <div class="col-md-6">
+        <div class="form-floating mb-3 mb-md-0">
+            <select class="form-select" aria-label="Estado" [(ngModel)]="estado">
+                <option selected value="0">Seleciona una opcion</option>
+                <option value="1">Pendiente</option>
+                <option value="2">En progreso</option>
+                <option value="3">Completada</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-floating">
+            <select class="form-select" aria-label="Usuario" [(ngModel)]="usuario">
+                <option selected value="0">Seleciona una opcion</option>
+                @for (item of usuarios; track item.id) {
+                    <option [value]="item.id">{{item.nombre}}</option>
+                }
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="mt-4 mb-0">
+    <div class="d-grid"><a class="btn btn-primary btn-block" (click)="eventoClick()">
+        confirmar
+    </a></div>
+</div>

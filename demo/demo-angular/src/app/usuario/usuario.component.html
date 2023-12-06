@@ -1,0 +1,81 @@
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Usuarios</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="#" (click)="nuevoUsuario()">Nuevo usuario</a></li>
+        <li class="breadcrumb-item active"></li>
+    </ol>
+    @if(muestra){
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+                Nueva tarea
+            </div>
+            <div class="card-body">
+                <app-usuario-dialog></app-usuario-dialog>
+            </div>
+        </div>
+        }
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Usuarios activos
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre del Usuario</th>
+                        <th>Usuario</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                @for (item of usuarios; track item.id) {
+                    <tr>
+                        
+                        <td>
+                            {{item.id}}
+                        </td>
+                        <td>
+                            @if (!item.muestra) {
+                                <div class="form-floating">
+                                    <input class="form-control" id="inputDescripcion" type="text" placeholder="Enter your last name" [(ngModel)]="txtNombre"/>
+                                    <label for="inputDescripcion">Nombre</label>
+                                </div>
+                            }
+                            @else {
+                                {{item.nombre}}
+                            }
+                        </td>
+                        <td>
+                            @if (!item.muestra) {
+                                <div class="form-floating">
+                                    <input class="form-control" id="inputDescripcion" type="text" placeholder="Enter your last name" [(ngModel)]="txtUsuario"/>
+                                    <label for="inputDescripcion">Usuario</label>
+                                </div>
+                            }
+                            @else {
+                                {{item.usuario}}
+                            }
+                        </td>
+                        <td class="row justify-content-center">
+                            <div class="btn-group me-2" role="group" aria-label="Second group">
+                                @if (item.muestra) {
+                                    <button type="button" class="btn btn-secondary" (click)="actualiza(item.id)">Actualizar</button>
+                                    <button type="button" class="btn btn-secondary"(click)="borrar(item.id)">Borrar</button>
+                                }
+                                @else {
+                                    <button type="button" class="btn btn-secondary" (click)="enviar(item.id)">Enviar</button>
+                                    <button type="button" class="btn btn-secondary" (click)="cancelar(item.id)">Cancelar</button>
+                                }
+                                
+                            </div>
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

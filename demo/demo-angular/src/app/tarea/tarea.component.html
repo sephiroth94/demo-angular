@@ -1,0 +1,129 @@
+<div class="container-fluid px-4">
+    <h1 class="mt-4">Tareas</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="#" (click)="nuevaTarea()">NuevaTarea</a></li>
+        <li class="breadcrumb-item active"></li>
+    </ol>
+    @if(muestra){
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Nueva tarea
+        </div>
+        <div class="card-body">
+            <app-tarea-dialog></app-tarea-dialog>
+        </div>
+    </div>
+    }
+    <div class="card mb-4">
+        <div class="card-header">
+            <i class="fas fa-table me-1"></i>
+            Tareas activas
+        </div>
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Descripcion</th>
+                        <th scope="col">Fecha de creacion</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col">Titulo</th>
+                        <th scope="col">Usuario</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (item of tareas; track item.id) {
+                        <tr>
+                            <td>
+                                {{item.id}}
+                            </td>
+                            <td>
+                                @if (!item.muestra) {
+                                    <div class="form-floating">
+                                        <input class="form-control" id="inputDescripcion" type="text" placeholder="Enter your last name" [(ngModel)]="txtDescripcion"/>
+                                        <label for="inputDescripcion">Descripcion</label>
+                                    </div>
+                                }
+                                @else {
+                                    {{item["descripción"]}}
+                                }
+                            </td>
+                            <td>
+                                @if (!item.muestra) {
+                                    <div class="form-floating">
+                                        <input class="form-control" id="inputFecha" type="date" placeholder="Enter your last name" [(ngModel)]="txtFechaCreacion"/>
+                                        <label for="inputFecha">Fecha de creacion</label>
+                                    </div>
+                                }
+                                @else {
+                                    {{item["fechaCreación"]}}
+                                }
+                            </td>
+                            <td>
+                                @if (!item.muestra) {
+                                    <div class="form-floating mb-3 mb-md-0">
+                                        <select class="form-select" aria-label="Estado" [(ngModel)]="txtEstado">
+                                            <option selected value="0">Seleciona una opcion</option>
+                                            <option value="1">Pendiente</option>
+                                            <option value="2">En progreso</option>
+                                            <option value="3">Completada</option>
+                                        </select>
+                                    </div>
+                                }
+                                @else {
+                                    @if (item.estado == 1) {
+                                        Pendiente
+                                    }
+                                    @if (item.estado == 2) {
+                                        En Progreso
+                                    }
+                                    @if (item.estado == 3) {
+                                        Completado
+                                    }
+                                }
+                            </td>
+                            <td>
+                                @if (!item.muestra) {
+                                    <div class="form-floating">
+                                        <input class="form-control" id="inputDescripcion" type="text" placeholder="Enter your last name" [(ngModel)]="txtTitulo"/>
+                                        <label for="inputDescripcion">Descripcion</label>
+                                    </div>
+                                }
+                                @else {
+                                    {{item["título"]}}
+                                }
+                            </td>
+                            <td>
+                                @if (!item.muestra) {
+                                    <select class="form-select" aria-label="Usuario" [(ngModel)]="txtIdUsuario">
+                                        <option selected value="0">Seleciona una opcion</option>
+                                        @for (item2 of usuarios; track item2.id) {
+                                            <option [value]="item2.id">{{item2.nombre}}</option>
+                                        }
+                                    </select>
+                                }@else {
+                                    {{item.usuario.nombre}}
+                                }
+                            </td>
+                            <td class="row justify-content-center">
+                                <div class="btn-group me-2" role="group" aria-label="Second group">
+                                    @if (item.muestra) {
+                                        <button type="button" class="btn btn-secondary" (click)="actualiza(item.id)">Actualizar</button>
+                                        <button type="button" class="btn btn-secondary"(click)="borrar(item.id)">Borrar</button>
+                                    }
+                                    @else {
+                                        <button type="button" class="btn btn-secondary" (click)="enviar(item.id)">Enviar</button>
+                                        <button type="button" class="btn btn-secondary" (click)="cancelar(item.id)">Cancelar</button>
+                                    }
+                                    
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
